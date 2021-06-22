@@ -1,10 +1,27 @@
-- task: Prisma Cloud IaC Scan@3
-  inputs:
-    Path: '.'
-    prismaCloudService: 'Prisma-IaC'
-    High: '1'
-    Medium: '1'
-    Low: '1'
-    Operator: 'or'
-    Tags: 'owner:pj'
-    IgnoreErrors: true
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: Prisma Cloud IaC Scan@3
+    inputs:
+      Path: '.'  # The .prismaCloud/config.yml sets the subdirectory
+      prismaCloudService: 'Prisma-IaC'
+      High: '1'
+      Medium: '1'
+      Low: '3'
+      Operator: 'or'
+  - task: Docker@2
+    condition: always()
+    inputs:
+      command: 'build'
+      Dockerfile: '**/Dockerfile'
+      arguments: '-t tryme'
+      addPipelineData: false
