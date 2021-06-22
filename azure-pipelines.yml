@@ -1,7 +1,7 @@
 # Starter pipeline
 - task: Prisma Cloud IaC Scan@3
   inputs:
-    Path: '*'
+    Path: '/TF'
     prismaCloudService: 'Prisma-IaC'
     High: '1'
     Medium: '1'
