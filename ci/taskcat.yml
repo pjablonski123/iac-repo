@@ -1,0 +1,9 @@
+project:
+  name: test-cfn
+  regions:
+  - eu-west-1
+tests:
+  default:
+    template: ./cfn-t1.yaml
+    parameters:
+      KeyPair: prisma-aws-key
