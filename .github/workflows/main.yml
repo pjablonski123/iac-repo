@@ -1,0 +1,27 @@
+name: Prisma Cloud Shift Left demo
+on: [ push,pull_request ]
+
+jobs:
+  prisma_cloud_job:
+    runs-on: ubuntu-latest
+    name: Run Prisma Cloud steps 
+    env:
+          TL_USER: ${{ secrets.TL_USER }}
+          TL_PASS: ${{ secrets.TL_PASS }}
+          TL_CONSOLE: ${{ secrets.TL_CONSOLE }} 
+    steps:
+    
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: ./files
+          soft_fail: true # optional: do not return an error code if there are failed checks
+          framework: kubernetes # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
+          quiet: true
+          output_format: github_failed_only # optional: the output format, one of: cli, json, junitxml, github_failed_only
+          log_level: WARNING # optional: set log level. Default WARNING
+          
