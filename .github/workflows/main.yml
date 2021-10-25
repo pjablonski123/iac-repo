@@ -5,10 +5,7 @@ jobs:
   prisma_cloud_job:
     runs-on: ubuntu-latest
     name: Run Prisma Cloud steps 
-    env:
-          TL_USER: ${{ secrets.TL_USER }}
-          TL_PASS: ${{ secrets.TL_PASS }}
-          TL_CONSOLE: ${{ secrets.TL_CONSOLE }} 
+
     steps:
     
       - name: Checkout
